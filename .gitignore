@@ -23,9 +23,11 @@ outputs/cut_check/
 outputs/cut_check_ref2/
 outputs/test_frames/
 outputs/temp_frames/
+outputs/temp/
 outputs/test_tts/
 outputs/test_images/
 outputs/test_videos/
+outputs/test_final/
 outputs/vision_test/
 outputs/vision_test_ref2/
 references/*.mp4
