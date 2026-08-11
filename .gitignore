@@ -1,0 +1,27 @@
+# Python standard gitignore
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Environment file
+.env
+
+# OS generated files
+.DS_Store
+
+# Generated output and reference media
+outputs/videos/*.mp4
+outputs/style_specs/*.json
+references/*.mp4
+
+# Preserve directory structure .gitkeep files
+!outputs/style_specs/.gitkeep
+!outputs/videos/.gitkeep
+!references/.gitkeep

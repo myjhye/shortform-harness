@@ -1,0 +1,11 @@
+ffmpeg-python
+requests
+Pillow
+mutagen
+scenedetect[opencv]
+librosa
+soundfile
+google-genai
+anthropic
+python-dotenv
+numpy
