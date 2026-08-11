@@ -22,6 +22,8 @@ outputs/style_specs/*.json
 outputs/cut_check/
 outputs/cut_check_ref2/
 outputs/test_frames/
+outputs/vision_test/
+outputs/vision_test_ref2/
 references/*.mp4
 
 # Preserve directory structure .gitkeep files
