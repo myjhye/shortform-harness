@@ -19,6 +19,9 @@ env/
 # Generated output and reference media
 outputs/videos/*.mp4
 outputs/style_specs/*.json
+outputs/cut_check/
+outputs/cut_check_ref2/
+outputs/test_frames/
 references/*.mp4
 
 # Preserve directory structure .gitkeep files
