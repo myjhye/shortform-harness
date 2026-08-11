@@ -23,9 +23,13 @@ outputs/cut_check/
 outputs/cut_check_ref2/
 outputs/test_frames/
 outputs/temp_frames/
+outputs/test_tts/
 outputs/vision_test/
 outputs/vision_test_ref2/
 references/*.mp4
+
+# External reference codebase
+reference/
 
 # Preserve directory structure .gitkeep files
 !outputs/style_specs/.gitkeep
