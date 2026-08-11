@@ -24,6 +24,8 @@ outputs/cut_check_ref2/
 outputs/test_frames/
 outputs/temp_frames/
 outputs/test_tts/
+outputs/test_images/
+outputs/test_videos/
 outputs/vision_test/
 outputs/vision_test_ref2/
 references/*.mp4
