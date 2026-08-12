@@ -7,7 +7,7 @@ import base64
 import os
 import subprocess
 import time
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 import requests
 from dotenv import load_dotenv
 
@@ -169,6 +169,62 @@ def generate_tts(
     raise RuntimeError(
         f"ElevenLabs TTS 생성 실패 ({TTS_MAX_RETRIES}회 시도): {last_error}"
     )
+
+
+def concat_audio_clips(audio_paths: List[str], output_path: str) -> float:
+    """여러 개의 mp3 오디오 파일들을 순서대로 이어붙여 하나의 오디오 파일로 만든다.
+
+    FFmpeg concat demuxer 사용. 반환값은 합쳐진 전체 재생 시간(초).
+    """
+    if not audio_paths:
+        raise ValueError("audio_paths 리스트가 비어 있습니다.")
+
+    out_dir = os.path.dirname(output_path)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+
+    temp_concat_list = os.path.join(
+        out_dir, f"concat_audio_list_{int(time.time())}.txt"
+    )
+    with open(temp_concat_list, "w", encoding="utf-8") as f:
+        for path in audio_paths:
+            if not os.path.exists(path):
+                raise FileNotFoundError(f"Audio clip file not found: {path}")
+            safe_p = os.path.abspath(path).replace("\\", "/")
+            f.write(f"file '{safe_p}'\n")
+
+    cmd = [
+        "ffmpeg",
+        "-y",
+        "-f",
+        "concat",
+        "-safe",
+        "0",
+        "-i",
+        temp_concat_list,
+        "-c",
+        "copy",
+        output_path,
+    ]
+
+    startupinfo = None
+    if os.name == "nt":
+        startupinfo = subprocess.STARTUPINFO()
+        startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
+    try:
+        subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+            startupinfo=startupinfo,
+        )
+    finally:
+        if os.path.exists(temp_concat_list):
+            os.remove(temp_concat_list)
+
+    return _get_audio_duration(output_path)
 
 
 if __name__ == "__main__":

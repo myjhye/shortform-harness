@@ -126,6 +126,32 @@ def compose_subtitle_prompt(
     return prompt.strip()
 
 
+def compose_image_prompt(
+    style_spec: Dict, user_input: str, segment_text: str
+) -> str:
+    """특정 자막 세그먼트 내용을 시각화하기 위한 이미지 생성용 영어 프롬프트를
+
+    만들기 위해 LLM에게 전달할 지시문 프롬프트를 만든다.
+
+    Replicate flux-schnell 모델에 전송할 상세한 영문 시각 프롬프트를 응답받는 목적.
+    """
+    prompt = f"""[이미지 생성용 영문 프롬프트(Image Prompt) 생성 요청]
+
+전체 영상 주제: {user_input}
+현재 씬 자막 내용: "{segment_text}"
+
+[지침]
+1. 위 자막 내용과 전체 영상 주제를 시각적으로 잘 나타낼 수 있는 구체적인 영문 이미지 프롬프트(English Image Generation Prompt) 1개를 작성해라.
+2. 예시: 
+   - 자막이 "콜라겐 앰플 하나로 탄력 케어 끝"인 경우 -> "Close-up shot of a clear collagen serum bottle with liquid drop on smooth glowing skin, elegant bathroom vanity background, 8k, photorealistic"
+3. 반드시 영어(English)로만 작성해라.
+4. 프롬프트 마지막에는 반드시 아래의 공통 스타일 키워드를 포함해라:
+   ", vertical shot, 9:16 aspect ratio, cinematic lighting, photorealistic, highly detailed"
+5. 다른 마크다운 설명이나 한국어 해석 없이 오직 생성된 영문 이미지 프롬프트 텍스트만 출력해라.
+"""
+    return prompt.strip()
+
+
 def compose_cut_plan(
     style_spec: Dict, total_duration_sec: float, seed: Optional[int] = None
 ) -> Dict:

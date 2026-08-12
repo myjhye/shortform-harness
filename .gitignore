@@ -33,7 +33,7 @@ outputs/vision_test_ref2/
 references/*.mp4
 
 # External reference codebase
-reference/
+reference_code/
 
 # Preserve directory structure .gitkeep files
 !outputs/style_specs/.gitkeep
